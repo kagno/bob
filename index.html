@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>YouTube Clone</h1>
+    </header>
+
+    <main>
+        <div id="upload-section">
+            <h2>Upload a Video</h2>
+            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                <input type="file" name="video-file" accept="video/*" required>
+                <button type="submit">Upload Video</button>
+            </form>
+        </div>
+
+        <div id="video-gallery">
+            <h2>Uploaded Videos</h2>
+            <?php
+                // List videos in the "video" folder
+                $dir = 'video/';
+                $files = array_diff(scandir($dir), array('..', '.'));
+
+                foreach ($files as $file) {
+                    if (is_file($dir . $file)) {
+                        echo '<div class="video-item">
+                                <video controls width="320">
+                                    <source src="' . $dir . $file . '" type="video/mp4">
+                                    Your browser does not support the video element.
+                                </video>
+                              </div>';
+                    }
+                }
+            ?>
+        </div>
+    </main>
+
+</body>
+</html>
